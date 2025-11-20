@@ -1,13 +1,16 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import { HashRouter } from "react-router-dom";
+import { BrowserRouter } from "react-router-dom";
 import App from "./App";
 import "./index.css";
 
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
   <React.StrictMode>
-    <HashRouter future={{ v7_startTransition: true, v7_relativeSplatPath: true }}>
+    <BrowserRouter
+      basename="/cuisine-app/"
+      future={{ v7_startTransition: true, v7_relativeSplatPath: true }}
+    >
       <App />
-    </HashRouter>
+    </BrowserRouter>
   </React.StrictMode>
 );
