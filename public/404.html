@@ -5,7 +5,13 @@
     <title>Redirecting…</title>
     <meta http-equiv="refresh" content="0; url=/cuisine-app/" />
     <script>
-      window.location.href = "/cuisine-app/" + window.location.search + window.location.hash;
+      (function () {
+        var base = "/cuisine-app";
+        var path = window.location.pathname.replace(new RegExp("^" + base), "");
+        var search = window.location.search || "";
+        var hash = window.location.hash || "";
+        window.location.replace(base + "/#" + path + search + hash);
+      })();
     </script>
   </head>
   <body>
