@@ -1,15 +1,16 @@
 import { render, screen } from "@testing-library/react";
-import { MemoryRouter, Route, Routes } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
 import CuisineDetailPage from "../pages/CuisineDetailPage";
 import { cuisines } from "../data/cuisines";
+import { TestRouter } from "./testUtils";
 
 const renderWithRoute = (path: string) =>
   render(
-    <MemoryRouter initialEntries={[path]}>
+    <TestRouter initialEntries={[path]}>
       <Routes>
         <Route path="/cuisine/:id" element={<CuisineDetailPage />} />
       </Routes>
-    </MemoryRouter>
+    </TestRouter>
   );
 
 describe("CuisineDetailPage", () => {

@@ -1,15 +1,15 @@
 import { render, screen } from "@testing-library/react";
-import { MemoryRouter } from "react-router-dom";
 import Layout from "../components/Layout";
+import { TestRouter } from "./testUtils";
 
 describe("Layout", () => {
   it("renders header and footer", () => {
     render(
-      <MemoryRouter>
+      <TestRouter>
         <Layout>
           <div>Content</div>
         </Layout>
-      </MemoryRouter>
+      </TestRouter>
     );
 
     expect(screen.getByText(/World Cuisines/i)).toBeInTheDocument();

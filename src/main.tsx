@@ -6,7 +6,10 @@ import "./index.css";
 
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
   <React.StrictMode>
-    <BrowserRouter basename="/cuisine-app/">
+    <BrowserRouter
+      basename="/cuisine-app/"
+      future={{ v7_startTransition: true, v7_relativeSplatPath: true }}
+    >
       <App />
     </BrowserRouter>
   </React.StrictMode>

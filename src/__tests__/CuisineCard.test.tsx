@@ -1,16 +1,16 @@
 import { render, screen } from "@testing-library/react";
-import { MemoryRouter } from "react-router-dom";
 import CuisineCard from "../components/CuisineCard";
 import { cuisines } from "../data/cuisines";
+import { TestRouter } from "./testUtils";
 
 describe("CuisineCard", () => {
   const sample = cuisines[0];
 
   it("renders cuisine info and links to detail", () => {
     render(
-      <MemoryRouter>
+      <TestRouter>
         <CuisineCard cuisine={sample} />
-      </MemoryRouter>
+      </TestRouter>
     );
 
     expect(screen.getByText(sample.name)).toBeInTheDocument();

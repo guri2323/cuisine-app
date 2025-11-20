@@ -1,13 +1,13 @@
 import { render, screen } from "@testing-library/react";
-import { MemoryRouter } from "react-router-dom";
 import NotFoundPage from "../pages/NotFoundPage";
+import { TestRouter } from "./testUtils";
 
 describe("NotFoundPage", () => {
   it("displays 404 message and link home", () => {
     render(
-      <MemoryRouter>
+      <TestRouter>
         <NotFoundPage />
-      </MemoryRouter>
+      </TestRouter>
     );
 
     expect(screen.getByText(/Page not found/i)).toBeInTheDocument();

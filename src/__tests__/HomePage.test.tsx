@@ -1,14 +1,14 @@
 import { render, screen, fireEvent } from "@testing-library/react";
-import { MemoryRouter } from "react-router-dom";
 import HomePage from "../pages/HomePage";
 import { cuisines } from "../data/cuisines";
+import { TestRouter } from "./testUtils";
 
 describe("HomePage", () => {
   it("shows cuisine count and cards", () => {
     render(
-      <MemoryRouter>
+      <TestRouter>
         <HomePage />
-      </MemoryRouter>
+      </TestRouter>
     );
 
     expect(
@@ -21,9 +21,9 @@ describe("HomePage", () => {
 
   it("filters cuisines by search term", () => {
     render(
-      <MemoryRouter>
+      <TestRouter>
         <HomePage />
-      </MemoryRouter>
+      </TestRouter>
     );
 
     const input = screen.getByPlaceholderText(/Search cuisines/i);

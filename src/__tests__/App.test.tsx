@@ -1,13 +1,13 @@
 import { render, screen } from "@testing-library/react";
-import { MemoryRouter } from "react-router-dom";
 import App from "../App";
 import { cuisines } from "../data/cuisines";
+import { TestRouter } from "./testUtils";
 
 const renderRoute = (initialPath: string) =>
   render(
-    <MemoryRouter initialEntries={[initialPath]}>
+    <TestRouter initialEntries={[initialPath]}>
       <App />
-    </MemoryRouter>
+    </TestRouter>
   );
 
 describe("App routing", () => {
