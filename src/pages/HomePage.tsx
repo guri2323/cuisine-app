@@ -1,9 +1,19 @@
 import { useMemo, useState } from "react";
 import { FiSearch } from "react-icons/fi";
 import CuisineCard from "../components/CuisineCard";
-import { cuisines } from "../data/cuisines";
+import { cuisines as cuisinesData, Cuisine } from "../data/cuisines";
 
-function HomePage() {
+interface HomePageProps {
+  cuisines?: Cuisine[];
+  favoriteIds?: string[];
+  onToggleFavorite?: (id: string) => void;
+}
+
+function HomePage({
+  cuisines = cuisinesData,
+  favoriteIds = [],
+  onToggleFavorite = () => {}
+}: HomePageProps) {
   const [searchTerm, setSearchTerm] = useState("");
 
   const filteredCuisines = useMemo(() => {
@@ -92,7 +102,12 @@ function HomePage() {
         ) : (
           <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {filteredCuisines.map((cuisine) => (
-              <CuisineCard key={cuisine.id} cuisine={cuisine} />
+              <CuisineCard
+                key={cuisine.id}
+                cuisine={cuisine}
+                isFavorite={favoriteIds.includes(cuisine.id)}
+                onToggleFavorite={onToggleFavorite}
+              />
             ))}
           </div>
         )}

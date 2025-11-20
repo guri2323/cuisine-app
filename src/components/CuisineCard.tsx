@@ -1,12 +1,14 @@
 import { Link } from "react-router-dom";
-import { FiClock, FiTrendingUp } from "react-icons/fi";
+import { FiClock, FiTrendingUp, FiHeart } from "react-icons/fi";
 import { Cuisine } from "../data/cuisines";
 
 interface CuisineCardProps {
   cuisine: Cuisine;
+  isFavorite?: boolean;
+  onToggleFavorite?: (id: string) => void;
 }
 
-function CuisineCard({ cuisine }: CuisineCardProps) {
+function CuisineCard({ cuisine, isFavorite = false, onToggleFavorite }: CuisineCardProps) {
   return (
     <Link
       to={`/cuisine/${cuisine.id}`}
@@ -43,6 +45,17 @@ function CuisineCard({ cuisine }: CuisineCardProps) {
           <span className="h-3 w-px bg-white/10" />
           <span>{cuisine.servings} servings</span>
         </div>
+        <button
+          type="button"
+          onClick={(e) => {
+            e.preventDefault();
+            onToggleFavorite?.(cuisine.id);
+          }}
+          className="inline-flex items-center gap-2 self-start rounded-full border border-white/10 bg-white/5 px-3 py-2 text-xs font-semibold text-white transition hover:border-primary/50 hover:bg-primary/10"
+        >
+          <FiHeart className={isFavorite ? "text-primary fill-primary" : "text-muted"} />
+          {isFavorite ? "Favorited" : "Add to favorites"}
+        </button>
       </div>
     </Link>
   );

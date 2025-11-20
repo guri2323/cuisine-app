@@ -1,9 +1,19 @@
 import { useMemo } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
-import { FiArrowLeft, FiClock, FiUsers, FiTrendingUp } from "react-icons/fi";
-import { cuisines } from "../data/cuisines";
+import { FiArrowLeft, FiClock, FiUsers, FiTrendingUp, FiHeart } from "react-icons/fi";
+import { cuisines as cuisinesData, Cuisine } from "../data/cuisines";
 
-function CuisineDetailPage() {
+interface CuisineDetailPageProps {
+  cuisines?: Cuisine[];
+  favoriteIds?: string[];
+  onToggleFavorite?: (id: string) => void;
+}
+
+function CuisineDetailPage({
+  cuisines = cuisinesData,
+  favoriteIds = [],
+  onToggleFavorite = () => {}
+}: CuisineDetailPageProps) {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
 
@@ -56,6 +66,18 @@ function CuisineDetailPage() {
               <span className="rounded-full bg-primary/20 px-3 py-1 text-sm font-semibold text-primary">
                 {cuisine.difficulty}
               </span>
+              <button
+                type="button"
+                onClick={() => onToggleFavorite(cuisine.id)}
+                className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-3 py-2 text-xs font-semibold text-white transition hover:border-primary/50 hover:bg-primary/10"
+              >
+                <FiHeart
+                  className={
+                    favoriteIds.includes(cuisine.id) ? "text-primary fill-primary" : "text-muted"
+                  }
+                />
+                {favoriteIds.includes(cuisine.id) ? "Favorited" : "Add to favorites"}
+              </button>
             </div>
             <p className="text-lg text-muted">{cuisine.description}</p>
             <div className="flex flex-wrap gap-3 text-sm text-muted">

@@ -4,12 +4,13 @@ import { ReactNode } from "react";
 
 interface LayoutProps {
   children: ReactNode;
+  favoritesCount?: number;
 }
 
 const navLinkClasses =
   "text-sm font-medium tracking-wide text-slate-300 hover:text-white transition";
 
-function Layout({ children }: LayoutProps) {
+function Layout({ children, favoritesCount = 0 }: LayoutProps) {
   return (
     <div className="min-h-screen bg-gradient-to-b from-slate-950 via-slate-900 to-slate-950 text-slate-100">
       <header className="sticky top-0 z-20 border-b border-white/5 bg-slate-950/70 backdrop-blur">
@@ -29,14 +30,20 @@ function Layout({ children }: LayoutProps) {
             <NavLink to="/" className={navLinkClasses}>
               Home
             </NavLink>
-            <a
-              className={navLinkClasses}
-              href="https://en.wikipedia.org/wiki/Cuisine"
-              target="_blank"
-              rel="noreferrer"
-            >
-              Learn
-            </a>
+            <NavLink to="/about" className={navLinkClasses}>
+              About
+            </NavLink>
+            <NavLink to="/contact" className={navLinkClasses}>
+              Contact
+            </NavLink>
+            <NavLink to="/favorites" className={navLinkClasses}>
+              Favorites{" "}
+              {favoritesCount > 0 && (
+                <span className="ml-1 rounded-full bg-primary/15 px-2 py-0.5 text-[10px] font-semibold text-primary">
+                  {favoritesCount}
+                </span>
+              )}
+            </NavLink>
           </nav>
         </div>
       </header>
