@@ -54,3 +54,4 @@ Configured via `tailwind.config.cjs` with content paths for Vite and a small the
 
 ## Deployment
 - Run `npm run build` and deploy the `dist/` output with any static host (e.g., Vercel, Netlify, GitHub Pages).
+- For GitHub Pages: app is configured for hash routing at `https://guri2323.github.io/cuisine-app/`. Ensure actions/builds use Node 18+ (`npm ci && npm run build`).

@@ -6,10 +6,7 @@ import "./index.css";
 
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
   <React.StrictMode>
-    <HashRouter
-      basename="/cuisine-app"
-      future={{ v7_startTransition: true, v7_relativeSplatPath: true }}
-    >
+    <HashRouter future={{ v7_startTransition: true, v7_relativeSplatPath: true }}>
       <App />
     </HashRouter>
   </React.StrictMode>
