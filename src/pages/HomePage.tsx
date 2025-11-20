@@ -1,7 +1,27 @@
+import { useMemo, useState } from "react";
+import { FiSearch } from "react-icons/fi";
 import CuisineCard from "../components/CuisineCard";
 import { cuisines } from "../data/cuisines";
 
 function HomePage() {
+  const [searchTerm, setSearchTerm] = useState("");
+
+  const filteredCuisines = useMemo(() => {
+    const term = searchTerm.trim().toLowerCase();
+    if (!term) return cuisines;
+    return cuisines.filter((cuisine) => {
+      const haystack = [
+        cuisine.name,
+        cuisine.shortDescription,
+        cuisine.description,
+        cuisine.ingredients.join(" ")
+      ]
+        .join(" ")
+        .toLowerCase();
+      return haystack.includes(term);
+    });
+  }, [searchTerm]);
+
   return (
     <div className="flex flex-col gap-10">
       <section className="overflow-hidden rounded-3xl border border-white/5 bg-gradient-to-r from-slate-900/90 via-slate-900 to-slate-950 p-8 shadow-xl shadow-black/40">
@@ -49,13 +69,33 @@ function HomePage() {
             <p className="text-sm uppercase tracking-[0.2em] text-muted">Cuisines</p>
             <h2 className="text-2xl font-semibold text-white">Pick a destination</h2>
           </div>
-          <p className="text-sm text-muted">{cuisines.length} curated dishes</p>
+          <p className="text-sm text-muted">
+            Showing {filteredCuisines.length} of {cuisines.length} curated dishes
+          </p>
         </div>
-        <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {cuisines.map((cuisine) => (
-            <CuisineCard key={cuisine.id} cuisine={cuisine} />
-          ))}
+
+        <div className="relative">
+          <FiSearch className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-slate-400" />
+          <input
+            type="text"
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+            placeholder="Search cuisines, descriptions, or ingredients..."
+            className="w-full rounded-2xl border border-white/10 bg-white/5 px-12 py-3 text-sm text-white placeholder:text-slate-500 focus:border-primary/60 focus:outline-none focus:ring-2 focus:ring-primary/40"
+          />
         </div>
+
+        {filteredCuisines.length === 0 ? (
+          <div className="rounded-2xl border border-white/5 bg-white/5 p-8 text-center text-muted">
+            No cuisines found. Try a different search.
+          </div>
+        ) : (
+          <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            {filteredCuisines.map((cuisine) => (
+              <CuisineCard key={cuisine.id} cuisine={cuisine} />
+            ))}
+          </div>
+        )}
       </section>
     </div>
   );
